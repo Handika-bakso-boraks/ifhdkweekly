@@ -37,18 +37,16 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Spacer palsu di kiri untuk mengimbangi lebar tombol kanan */
         .navbar::before {
             content: '';
             width: 130px; 
             display: block;
         }
 
-        /* Pembungkus Menu Tengah */
         .nav-menu {
             display: flex;
             justify-content: center;
-            margin: 0 auto; /* Mengunci menu utama tepat di as tengah layout */
+            margin: 0 auto;
         }
 
         .navbar a {
@@ -62,122 +60,214 @@
             transition: all 0.3s ease;
         }
 
-        .navbar a:hover:not(.btn-booking), .navbar a.active {
+        .navbar a:hover:not(.btn-hero-booking), .navbar a.active {
             color: #ffffff;
             background-color: rgba(255, 255, 255, 0.2);
         }
 
-        /* Tombol Booking Kuning - Pojok Kanan */
-        .navbar a.btn-booking {
+        .navbar a.btn-hero-booking {
             background-color: #fbbf24;
-            color: #0f172a;
+            color: #0f172a !important;
             font-weight: 700;
             border: 2px solid transparent; 
             width: 130px; 
             text-align: center;
+            padding: 8px 20px;
+            border-radius: 20px;
+            box-shadow: none;
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .navbar a.btn-booking:hover {
+        .navbar a.btn-hero-booking:hover {
             background-color: #f59e0b;
-            color: #0f172a;
+            color: #0f172a !important;
             transform: translateY(-1px);
             box-shadow: 0 4px 12px rgba(251, 191, 36, 0.2);
         }
 
-        .navbar a.btn-booking:active {
-            transform: scale(0.96);
+        /* Hero Section */
+        .hero-section {
+           flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 20px 40px 20px;
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative; /* Tambahkan ini */
+    z-index: 5;         /* Tambahkan ini agar tombol naik ke lapisan atas */
+}
+
+        .hero-title {
+            font-size: 52px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            text-transform: uppercase;
         }
 
-        /* Container Utama */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
-            flex: 1;
+        .hero-tagline {
+            font-size: 20px;
+            color: #a5c7f7;
+            margin-bottom: 35px;
+            max-width: 600px;
+            font-weight: 400;
         }
 
-        h3 {
-            font-size: 28px;
-            margin-bottom: 20px;
-            position: relative;
-            padding-bottom: 8px;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        .hero-cta-group {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 60px;
         }
 
-        /* Section Layanan (Card Layout) */
-        .services-section {
-            margin-bottom: 50px;
+        .btn-primary {
+            background-color: #ffffff;
+            color: #1e3c72;
+            padding: 12px 28px;
+            font-weight: 600;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255,255,255,0.3);
+        }
+
+        .btn-secondary {
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            color: #ffffff;
+            padding: 12px 28px;
+            font-weight: 600;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: #ffffff;
+        }
+
+        /* Hero Section Booking Button (Orange Style) */
+        .hero-section .btn-hero-booking {
+            background-color: #d97706; 
+            color: #ffffff !important;
+            font-weight: 700;
+            padding: 12px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(217, 119, 6, 0.3);
+        }
+
+        .hero-section .btn-hero-booking:hover {
+            background-color: #b45309; 
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(217, 119, 6, 0.5);
+        }
+
+        .hero-section .btn-hero-booking:active {
+            transform: scale(0.97);
+        }
+
+        /* Services Grid Section */
+        .services-container {
+            width: 100%;
+            max-width: 1100px;
+            margin: 40px auto 60px auto;
+            padding: 0 20px;
+        }
+
+        .services-heading {
+            text-align: center;
+            font-size: 24px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            color: #ffffff;
         }
 
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            list-style: none;
-            margin-top: 15px;
+            gap: 25px;
         }
 
         .service-card {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 25px;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(5px);
-            transition: transform 0.3s ease, background 0.3s ease;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 40px 30px;
+            border-radius: 16px;
+            text-align: left;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), border-color 0.3s ease;
+            background: rgba(15, 23, 42, 0.4);
+        }
+
+        .service-bg-image {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1), filter 0.6s ease;
+        }
+
+        .service-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            background: linear-gradient(to bottom, rgba(15, 23, 42, 0.5) 0%, rgba(15, 23, 42, 0.8) 100%);
+            transition: background 0.4s ease;
+        }
+
+        .service-content {
+            position: relative;
+            z-index: 3;
         }
 
         .service-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-8px);
+            border-color: rgba(251, 191, 36, 0.4);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
         }
 
-        .service-card strong {
-            display: block;
-            font-size: 20px;
-            color: #a5c7f7;
-            margin-bottom: 10px;
+        .service-card:hover .service-bg-image {
+            transform: scale(1.1);
+            filter: blur(4px);
         }
 
-        /* Section Galeri (Grid Layout Responsif) */
-        .gallery-section {
-            margin-bottom: 40px;
+        .service-card:hover .service-overlay {
+            background: linear-gradient(to bottom, rgba(15, 23, 42, 0.6) 0%, rgba(15, 23, 42, 0.9) 100%);
         }
 
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-            margin-top: 25px;
+        .service-icon {
+            font-size: 36px;
+            margin-bottom: 15px;
+            display: inline-block;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
 
-        .gallery-item {
-            background: rgba(0, 0, 0, 0.15);
-            border-radius: 10px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            transition: transform 0.3s ease;
+        .service-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #ffffff;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.6);
         }
 
-        .gallery-item:hover {
-            transform: scale(1.03);
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover; 
-            display: block;
-        }
-
-        .gallery-item caption {
-            display: block;
-            padding: 12px;
-            text-align: center;
+        .service-desc {
             font-size: 14px;
             color: #e2e8f0;
-            background: rgba(0, 0, 0, 0.2);
+            line-height: 1.6;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.6);
         }
 
         /* Modern Footer */
@@ -190,80 +280,85 @@
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Handle typo perbaikan minor teks */
-        .typo-fix {
-            color: #e2e8f0;
+        /* Responsive Breakpoints */
+        @media (max-width: 600px) {
+            .navbar { padding: 15px 20px; }
+            .navbar::before { display: none; }
+            .navbar a.btn-hero-booking { width: auto; padding: 8px 15px; }
+            .hero-title { font-size: 36px; }
+            .hero-tagline { font-size: 16px; }
+            .navbar a { padding: 8px 12px; font-size: 14px; }
+            .hero-cta-group { flex-direction: column; width: 100%; max-width: 300px; }
+            .btn-primary, .btn-secondary { text-align: center; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Navigasi -->
+    <!-- Navigator Tetap Konsisten (Fixed Structural Bug) -->
     <nav class="navbar">
         <div class="nav-menu">
             <a href="profile.html">Profile</a>
             <a href="Home.html" class="active">Home</a>
             <a href="Galeri.html">Gallery</a>
         </div>
-        <a href="Comishion.html" class="btn-booking">Book Now</a>
+        <a href="Comishiion.html" class="btn-hero-booking">Book Now</a>
     </nav>
 
-    <main class="container">
+    <!-- Hero Content -->
+    <main class="hero-section">
+        <h1 class="hero-title">Freezing Fleeting Moments</h1>
+        <p class="hero-tagline">Menyelamatkan setiap detik berharga dan mengubah instansi singkat menjadi memori abadi untuk selamanya.</p>
         
-        <!-- Section Layanan -->
-        <section class="services-section">
-            <h3>Layanan Kami</h3>
-            <ul class="services-grid">
-                <li class="service-card">
-                    <strong>Sunmori Photography</strong>
-                    <p class="typo-fix">Segmen foto Sunday Morning Ride di sekitaran jalanan kota Semarang yang menjadi rutinitas para rider lokal.</p>
-                </li>
-                <li class="service-card">
-                    <strong>Cosplay Photoshoot</strong>
-                    <p class="typo-fix">Segmen foto khusus untuk para penggemar anime/kultur jejepangan yang ingin mengekspresikan hobi dan karakter favorit mereka.</p>
-                </li>
-                <li class="service-card">
-                    <strong>Nyoride</strong>
-                    <p class="typo-fix">Segmen foto sore hari untuk para rider di sekitar Jalan Baru (JB) UNDIP yang tidak sempat mengikuti sesi Sunmori.</p>
-                </li>
-            </ul>
-        </section>
-
-        <!-- Section Galeri -->
-        <section class="gallery-section">
-            <h3>Galeri RES Shoot & RESSER</h3>
+        <div class="hero-cta-group">
+            <a href="Galeri.html" class="btn-primary">Explore Gallery</a>
+            <a href="Comishion.html" class="btn-hero-booking">Book Now</a>
             
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="assets/img/NYORE.jpg" alt="Nyoride Semarang">
-                    <caption>Nyoride Semarang</caption>
-                </div>
-                <div class="gallery-item">
-                    <img src="assets/img/Nyoride.jpg" alt="Nyoride Semarang">
-                    <caption>Nyoride Semarang</caption>
-                </div>
-                <div class="gallery-item">
-                    <img src="assets/img/VIVIE.jpg" alt="Cosplay Project Vivie">
-                    <caption>Cosplay</caption>
-                </div>
-                <div class="gallery-item">
-                    <img src="assets/img/KEQING.jpg" alt="Cosplay Project Keqing">
-                    <caption>Cosplay</caption>
-                </div>
-                <div class="gallery-item">
-                    <img src="assets/img/SUNSEMAR.jpg" alt="Sunday Morning Ride Semarang">
-                    <caption>Sunday Morning Ride</caption>
-                </div>
-                <div class="gallery-item">
-                    <img src="assets/img/SUNMORI.jpg" alt="Sunday Morning Ride">
-                    <caption>Sunday Morning Ride</caption>
-                </div>
-            </div>
-        </section>
-
+        </div>
     </main>
 
-    <!-- Footer Modern -->
+    <!-- Services Grid Showcase -->
+    <section class="services-container">
+        <h2 class="services-heading">Our Expertise</h2>
+        <div class="services-grid">
+            
+            <!-- Service 1: Automotive -->
+            <div class="service-card">
+                <div class="service-bg-image" style="background-image: url('assets/img/SUNMORI.jpg');"></div>
+                <div class="service-overlay"></div>
+                <div class="service-content">
+                    <span class="service-icon">📸</span>
+                    <h3 class="service-title">Automotive</h3>
+                    <p class="service-desc">Dokumentasi Sunmori, Joyride, maupun rolling malam dengan fokus kecepatan, presisi, dan ketajaman warna kendaraan Anda.</p>
+                </div>
+            </div>
+
+            <!-- Service 2: Cosplay Shoot -->
+            <div class="service-card">
+                <div class="service-bg-image" style="background-image: url('assets/img/KEQING.jpg');"></div>
+                <div class="service-overlay"></div>
+                <div class="service-content">
+                    <span class="service-icon">📸</span>
+                    <h3 class="service-title">Cosplay Shoot</h3>
+                    <p class="service-desc">Menangkap detail kostum, ekspresi karakter, dan dramatisasi visual terbaik di setiap event pop kultur dan studio.</p>
+                </div>
+            </div>
+
+            <!-- Service 3: Personal Portraits -->
+            <div class="service-card">
+                <div class="service-bg-image" style="background-image: url('assets/img/NYORE.jpg');"></div>
+                <div class="service-overlay"></div>
+                <div class="service-content">
+                    <span class="service-icon">📸</span>
+                    <h3 class="service-title">Personal Portraits</h3>
+                    <p class="service-desc">Sesi foto kasual, konseptual, maupun kebutuhan branding profil dengan arahan gaya yang santai dan profesional.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer>
         <p>&copy; 2026 Res Shoot by Handika. All Rights Reserved.</p>
     </footer>
