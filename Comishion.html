@@ -1,144 +1,278 @@
-<?php
-// ==========================================
-// 1. KONFIGURASI & KONEKSI DATABASE LARAGON
-// ==========================================
-$host     = "localhost";
-$username = "root";              
-$password = "";                  
-$database = "comishion_resshoot"; 
-
-$koneksi = mysqli_connect($host, $username, $password, $database);
-
-// Cek koneksi database
-if (!$koneksi) {
-    die("Koneksi ke database gagal: " . mysqli_connect_error());
-}
-
-// ==========================================
-// 2. LOGIKA MENANGKAP & MENYIMPAN DATA FORM
-// ==========================================
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Mengambil data dari inputan form HTML
-    $nama    = $_POST['nama'];
-    $kapan   = $_POST['kapan'];
-    $dimana  = $_POST['dimana'];
-    $paket   = $_POST['paket'];
-
-    // Membuat query SQL sesuai kolom di HeidiSQL (Nama, Tanggal, Lokasi, Paket)
-    $query = "INSERT INTO comishion_cosplay (Nama, Tanggal, Lokasi, Paket) 
-              VALUES ('$nama', '$kapan', '$dimana', '$paket')";
-
-    // Menjalankan query
-    if (mysqli_query($koneksi, $query)) {
-        echo "<script>
-                alert('Data booking berhasil disimpan, Hazusa!');
-                window.location.href='Comishion.php';
-              </script>";
-    } else {
-         echo "Waduh, eror nih: " . mysqli_error($koneksi);
-    }
-} 
-?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gallery & Commission</title>
+    <title>Booking Commission - Res Shoot</title>
     <link rel="icon" type="image/png" href="wmm.png">
+    <style>
+        /* Reset & Landingfolio Base Style */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body { 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #0f172a; 
+            color: #f8f9fa;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.5;
+        }
+
+        /* Modern & Minimalist Navbar dengan Global CTA */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 20px;
+            color: #ffffff;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+      .nav-links {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.nav-links a {
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.nav-links a:not(.btn-booking):hover {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Gaya CTA Button di Navbar (Kuning Amber Menarik Perhatian) */
+.nav-links a.btn-booking {
+    background-color: #fbbf24;
+    color: #0f172a;
+    font-weight: 700;
+    border: 2px solid transparent; /* Buffer 2px agar layout tidak geser saat outline muncul */
+    transition: transform 0.2s, background-color 0.2s, border-color 0.2s, color 0.2s;
+}
+
+/* State saat halaman booking AKTIF (Berubah jadi OUTLINE Kuning) */
+.nav-links a.btn-booking.active {
+    background-color: rgba(251, 191, 36, 0.08);
+    color: #fbbf24;
+    border: 2px solid #fbbf24;
+}
+
+/* Efek Hover hanya bekerja saat tombol TIDAK sedang aktif */
+.nav-links a.btn-booking:hover:not(.active) {
+    background-color: #f59e0b; /* Kuning sedikit lebih gelap */
+    transform: translateY(-1px);
+}
+
+/* Efek feedback taktil saat tombol ditekan */
+.nav-links a.btn-booking:active {
+    transform: scale(0.96);
+}
+
+        /* Header Section ala Landingfolio */
+        .page-header {
+            text-align: center;
+            padding: 60px 20px 30px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .page-header h1 {
+            font-size: 42px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+        }
+
+        .page-header p {
+            color: #94a3b8;
+            font-size: 16px;
+        }
+
+        /* Container & Form Layout */
+        .container {
+            max-width: 600px; /* Ramping khas form Landingfolio agar fokus */
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 20px 60px 20px;
+            flex: 1;
+        }
+
+        .booking-card {
+            background: #1e293b;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 32px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #38bdf8;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            background-color: #0f172a;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: #ffffff;
+            font-family: inherit;
+            font-size: 15px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #38bdf8;
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
+        }
+
+        .form-control::placeholder {
+            color: #475569;
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* Tombol Kirim Flat & Tegas */
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background-color: #38bdf8;
+            color: #0f172a;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        .btn-submit:hover {
+            background-color: #0ea5e9;
+        }
+
+        .btn-submit:active {
+            transform: scale(0.99);
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 25px;
+            text-align: center;
+            font-size: 14px;
+            color: #64748b;
+        }
+    </style>
 </head>
-<body style="background-color: rgb(31, 142, 178); color: white; font-family: sans-serif; padding: 20px; margin: 0;">
+<body>
 
-    <table border="1" cellspacing="0" cellpadding="10" style="border-color: white; border-style: solid; margin-bottom: 20px;"> 
-        <tr>
-            <td><a href="profile.html" style="color: white; text-decoration: none;">Profile</a></td>
-            <td><a href="Home.html" style="color: white; text-decoration: none;">Home</a></td>
-            <td><a href="Comishion.php" style="color: white; text-decoration: none;">Comishion</a></td>
-            <td><a href="Galeri.html" style="color: white; text-decoration: none;">Gallery</a></td>
-        </tr>
-    </table>
+    <!-- Header Navigation -->
+    <nav class="navbar">
+        <a href="Home.html" class="navbar-brand">RES_SHOOT</a>
+        <div class="nav-links">
+            <a href="profile.html">Profile</a>
+            <a href="Home.html">Home</a>
+            <a href="Galeri.html">Gallery</a>
+            <a href="Comishion.html" class="btn-booking active">Book Now</a>
+        </div>
+    </nav>
 
-    <br><br>
+    <!-- Page Header -->
+    <header class="page-header">
+        <h1>Book a Session</h1>
+        <p>Amankan jadwal fotomu sebelum slot penuh. Cocok untuk sesi Sunmori, Nyoride, atau Cosplay.</p>
+    </header>
 
-    <h2>Res shoot Photography Showcase</h2>
-    <p>Beberapa hasil dari foto yang sudah berhasil Res Shoot selamatkan:</p>
-    
-    <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 15px;">
-        <table border="0" cellspacing="15" cellpadding="0" style="width: auto; margin: 0 auto;">
-            <tr>
-                <td>
-                    <img src="assets/img/idol.jpg" alt="Hasil Foto 1" width="300" style="border: 2px solid white; border-radius: 5px;">
-                    <br><small>Idol photography Session</small>
-                </td>
+    <!-- Main Content Container -->
+    <main class="container">
+        <div class="booking-card">
+            <form action="#" method="POST" id="bookingForm">
                 
-                <td>
-                    <img src="assets/img/waguri.jpg" alt="Hasil Foto 2" width="300" style="border: 2px solid white; border-radius: 5px;">
-                    <br><small>Cosplay / Portrait Session</small>
-                </td>
-                
-                <td>
-                    <img src="assets/img/iroha.jpg" alt="Hasil Foto 3" width="300" style="border: 2px solid white; border-radius: 5px;">
-                    <br><small>Event Session</small>
-                </td>
-                
-                <td>
-                    <img src="assets/img/IMG_5594.jpg" alt="Hasil Foto 4" width="300" style="border: 2px solid white; border-radius: 5px;">
-                    <br><small>Automotive / Nyoride Session</small>
-                </td>
-                
-                <td>
-                    <img src="assets/img/NYORE.jpg" alt="Hasil Foto 5" width="300" style="border: 2px solid white; border-radius: 5px;">
-                    <br><small>Automotive / Sunmori Session</small>
-                </td>
-                
-                <td>
-                    <img src="assets/img/IMG_0917.jpg" alt="Hasil Foto 6" width="300" style="border: 2px solid white; border-radius: 5px;">
-                    <br><small>Automotive / Potses Session</small>
-                </td>
-            </tr>
-        </table>
-    </div>
+                <!-- Nama Klien -->
+                <div class="form-group">
+                    <label for="name">Nama Lengkap / Nickname</label>
+                    <input type="text" id="name" name="name" class="form-control" placeholder="Contoh: Elaina / Handika" required>
+                </div>
 
-    <br><br><hr style="border-color: white;"><br>
-
-    <h2>Book a Commission</h2>
-    <p>Silakan isi formulir di bawah ini untuk memesan slot fotografi:</p>
-
-    <form action="Comishion.php" method="POST">
-        <table border="0" cellpadding="8" cellspacing="0" style="color: white; margin-left: 20px;">
-            <tr>
-                <td><label for="nama">Nama Lengkap</label></td>
-                <td>:</td>
-                <td><input type="text" id="nama" name="nama" placeholder="Masukkan nama kamu" required style="width: 250px; padding: 5px;"></td>
-            </tr>
-            <tr>
-                <td><label for="kapan">Kapan (Tanggal)</label></td>
-                <td>:</td>
-                <td><input type="date" id="kapan" name="kapan" required style="width: 250px; padding: 5px;"></td>
-            </tr>
-            <tr>
-                <td><label for="dimana">Di mana (Lokasi)</label></td>
-                <td>:</td>
-                <td><input type="text" id="dimana" name="dimana" placeholder="Misal: Queen City Mall / Alun-alun" required style="width: 250px; padding: 5px;"></td>
-            </tr>
-            <tr>
-                <td><label for="paket">Pilihan Paket</label></td>
-                <td>:</td>
-                <td>
-                    <select id="paket" name="paket" required style="width: 264px; padding: 5px;">
-                        <option value="">-- Pilih Paket Foto --</option>
-                        <option value="sunmori">Paket Sunmori / Otomotif (Personal)</option>
-                        <option value="cosplay">Paket Cosplay / Portrait (Sesi 2 Jam)</option>
-                        <option value="event">Paket Event / Dokumentasi</option>
+                <!-- Kategori Sesi -->
+                <div class="form-group">
+                    <label for="category">Kategori Sesi</label>
+                    <select id="category" name="category" class="form-control" required>
+                        <option value="" disabled selected>Pilih jenis sesi...</option>
+                        <option value="Sunmori">Sunmori (Morning Ride)</option>
+                        <option value="Nyoride">Nyoride (Afternoon Ride)</option>
+                        <option value="Cosplay">Cosplay Portrait</option>
+                        <option value="Custom">Custom / Event Project</option>
                     </select>
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td><br><input type="submit" value="Kirim Booking" style="padding: 8px 20px; background-color: white; color: rgb(31, 142, 178); border: none; font-weight: bold; cursor: pointer; border-radius: 4px;"></td>
-            </tr>
-        </table>
-    </form>
+                </div>
+
+                <!-- Tanggal Sesi -->
+                <div class="form-group">
+                    <label for="date">Rencana Tanggal Sesi</label>
+                    <input type="date" id="date" name="date" class="form-control" required>
+                </div>
+
+                <!-- Detail Properti & Lokasi -->
+                <div class="form-group">
+                    <label for="details">Detail Kendaraan / Karakter & Lokasi</label>
+                    <textarea id="details" name="details" class="form-control" placeholder="Sebutkan detail kendaraan (misal: Vario 160) / karakter cosplay, serta rencana lokasi photoshoot." required></textarea>
+                </div>
+
+                <!-- Kontak -->
+                <div class="form-group">
+                    <label for="contact">Nomor WhatsApp / Username Instagram</label>
+                    <input type="text" id="contact" name="contact" class="form-control" placeholder="Contoh: @res_shoot / 081234xxxx" required>
+                </div>
+
+                <!-- Tombol Submit -->
+                <button type="submit" class="btn-submit">Kirim Pengajuan Booking</button>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Res Shoot by Handika. All Rights Reserved.</p>
+    </footer>
+
 </body>
 </html>

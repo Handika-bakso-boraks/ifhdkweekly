@@ -23,17 +23,32 @@
             line-height: 1.6;
         }
 
-        /* Modern Navbar Navigation */
+        /* Modern Navbar Navigation - Perfect Center & Right Alignment */
         .navbar {
             display: flex;
-            justify-content: center;
+            align-items: center;
+            justify-content: space-between;
             background-color: rgba(0, 0, 0, 0.2);
             backdrop-filter: blur(10px);
-            padding: 15px 0;
+            padding: 15px 40px;
             position: sticky;
             top: 0;
             z-index: 1000;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Spacer palsu di kiri untuk mengimbangi lebar tombol kanan */
+        .navbar::before {
+            content: '';
+            width: 130px; 
+            display: block;
+        }
+
+        /* Pembungkus Menu Tengah */
+        .nav-menu {
+            display: flex;
+            justify-content: center;
+            margin: 0 auto;
         }
 
         .navbar a {
@@ -47,9 +62,31 @@
             transition: all 0.3s ease;
         }
 
-        .navbar a:hover, .navbar a.active {
+        .navbar a:hover:not(.btn-booking), .navbar a.active {
             color: #ffffff;
             background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Tombol Booking Kuning - Pojok Kanan */
+        .navbar a.btn-booking {
+            background-color: #fbbf24;
+            color: #0f172a;
+            font-weight: 700;
+            border: 2px solid transparent; 
+            width: 130px; 
+            text-align: center;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .navbar a.btn-booking:hover {
+            background-color: #f59e0b;
+            color: #0f172a;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(251, 191, 36, 0.2);
+        }
+
+        .navbar a.btn-booking:active {
+            transform: scale(0.96);
         }
 
         /* Container Utama */
@@ -75,7 +112,7 @@
             font-size: 16px;
         }
 
-        /* Album Hub Grid (3 Thumbnail Categories) */
+        /* Album Hub Grid */
         .album-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -83,14 +120,13 @@
             margin-bottom: 60px;
         }
 
-        /* Membuat seluruh card bisa diklik sebagai link */
         .album-card {
             background: rgba(0, 0, 0, 0.2);
             border-radius: 16px;
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-            text-decoration: none; /* Menghilangkan underline link default */
+            text-decoration: none; 
             color: inherit;
             display: flex;
             flex-direction: column;
@@ -117,12 +153,10 @@
             transition: transform 0.5s ease;
         }
 
-        /* Efek zoom foto saat card di-hover */
         .album-card:hover .thumbnail-wrapper img {
             transform: scale(1.08);
         }
 
-        /* Badge overlay untuk mempercantik */
         .album-badge {
             position: absolute;
             top: 15px;
@@ -173,10 +207,12 @@
 
     <!-- Navigator Tetap Konsisten -->
     <nav class="navbar">
-        <a href="profile.html">Profile</a>
-        <a href="Home.html">Home</a>
-        <a href="Comishion.html">Commission</a>
-        <a href="Galeri.html" class="active">Gallery</a>
+        <div class="nav-menu">
+            <a href="profile.html">Profile</a>
+            <a href="Home.html">Home</a>
+            <a href="Galeri.html" class="active">Gallery</a>
+        </div>
+        <a href="Commission.html" class="btn-booking">Book Now</a>
     </nav>
 
     <main class="container">
@@ -187,7 +223,7 @@
             
             <div class="album-grid">
                 
-                <!-- Album 1: Sunmori (Directs to galeri-sunmori.html) -->
+                <!-- Album 1: Sunmori -->
                 <a href="galeri-sunmori.html" class="album-card">
                     <div class="thumbnail-wrapper">
                         <span class="album-badge">Automotive</span>
@@ -199,10 +235,10 @@
                     </div>
                 </a>
 
-                <!-- Album 2: Cosplay (Directs to galeri-cosplay.html) -->
+                <!-- Album 2: Cosplay -->
                 <a href="galeri-cosplay.html" class="album-card">
                     <div class="thumbnail-wrapper">
-                        <span class="album-badge">Culture</span>
+                        <span class="album-badge">Cosplay</span>
                         <img src="assets/img/KEQING.jpg" alt="Cosplay Photography Thumbnail">
                     </div>
                     <div class="album-info">
@@ -211,7 +247,7 @@
                     </div>
                 </a>
 
-                <!-- Album 3: Nyoride (Directs to galeri-nyoride.html) -->
+                <!-- Album 3: Nyoride -->
                 <a href="galeri-nyoride.html" class="album-card">
                     <div class="thumbnail-wrapper">
                         <span class="album-badge">Automotive</span>
