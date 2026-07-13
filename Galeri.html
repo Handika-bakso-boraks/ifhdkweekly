@@ -3,19 +3,235 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gallery & Commission</title>
+    <title>Gallery Album - Res Shoot</title>
     <link rel="icon" type="image/png" href="wmm.png">
-</head>
-<body style="background-color: rgb(31, 142, 178); color: white;">
+    <style>
+        /* Reset & Base Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    <table border="1" cellspacing="0" cellpadding="10" style="border-color: white; border-style: solid;"> 
-        <tr>
-            <td><a href="profile.html" style="color: white; text-decoration: none;">Profile</a></td>
-            <td><a href="Home.html" style="color: white; text-decoration: none;">Home</a></td>
-            <td><a href="Comishion.html" style="color: white; text-decoration: none;">Comishion</a></td>
-            <td><a href="Galeri.html" style="color: white; text-decoration: none;">Gallery</a></td>
-        </tr>
-    </table>
+        body { 
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #f8f9fa;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.6;
+        }
+
+        /* Modern Navbar Navigation */
+        .navbar {
+            display: flex;
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .navbar a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            padding: 8px 20px;
+            margin: 0 5px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar a:hover, .navbar a.active {
+            color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Container Utama */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            flex: 1;
+        }
+
+        h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .section-desc {
+            text-align: center;
+            color: #a5c7f7;
+            margin-bottom: 40px;
+            font-size: 16px;
+        }
+
+        /* Album Hub Grid (3 Thumbnail Categories) */
+        .album-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        /* Membuat seluruh card bisa diklik sebagai link */
+        .album-card {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            text-decoration: none; /* Menghilangkan underline link default */
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease;
+        }
+
+        .album-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            border-color: rgba(165, 199, 247, 0.4);
+        }
+
+        .thumbnail-wrapper {
+            width: 100%;
+            height: 280px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .thumbnail-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        /* Efek zoom foto saat card di-hover */
+        .album-card:hover .thumbnail-wrapper img {
+            transform: scale(1.08);
+        }
+
+        /* Badge overlay untuk mempercantik */
+        .album-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(30, 60, 114, 0.85);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .album-info {
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.15);
+            text-align: center;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .album-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 6px;
+        }
+
+        .album-count {
+            font-size: 14px;
+            color: #a5c7f7;
+        }
+
+        /* Modern Footer */
+        footer {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigator Tetap Konsisten -->
+    <nav class="navbar">
+        <a href="profile.html">Profile</a>
+        <a href="Home.html">Home</a>
+        <a href="Comishion.html">Commission</a>
+        <a href="Galeri.html" class="active">Gallery</a>
+    </nav>
+
+    <main class="container">
+        
+        <section>
+            <h2>Our Galleries</h2>
+            <p class="section-desc">Pilih album untuk melihat koleksi foto dokumentasi kami secara lengkap</p>
+            
+            <div class="album-grid">
+                
+                <!-- Album 1: Sunmori (Directs to galeri-sunmori.html) -->
+                <a href="galeri-sunmori.html" class="album-card">
+                    <div class="thumbnail-wrapper">
+                        <span class="album-badge">Automotive</span>
+                        <img src="assets/img/SUNMORI.jpg" alt="Sunmori Photography Thumbnail">
+                    </div>
+                    <div class="album-info">
+                        <span class="album-title">Sunday Morning Ride</span>
+                        <span class="album-count">Lihat Album →</span>
+                    </div>
+                </a>
+
+                <!-- Album 2: Cosplay (Directs to galeri-cosplay.html) -->
+                <a href="galeri-cosplay.html" class="album-card">
+                    <div class="thumbnail-wrapper">
+                        <span class="album-badge">Culture</span>
+                        <img src="assets/img/KEQING.jpg" alt="Cosplay Photography Thumbnail">
+                    </div>
+                    <div class="album-info">
+                        <span class="album-title">Cosplay Photoshoot</span>
+                        <span class="album-count">Lihat Album →</span>
+                    </div>
+                </a>
+
+                <!-- Album 3: Nyoride (Directs to galeri-nyoride.html) -->
+                <a href="galeri-nyoride.html" class="album-card">
+                    <div class="thumbnail-wrapper">
+                        <span class="album-badge">Automotive</span>
+                        <img src="assets/img/NYORE.jpg" alt="Nyoride Photography Thumbnail">
+                    </div>
+                    <div class="album-info">
+                        <span class="album-title">Nyoride Semarang</span>
+                        <span class="album-count">Lihat Album →</span>
+                    </div>
+                </a>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Res Shoot by Handika. All Rights Reserved.</p>
+    </footer>
 
 </body>
 </html>

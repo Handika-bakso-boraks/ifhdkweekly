@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Commission - Res Shoot</title>
+    <link rel="icon" type="image/png" href="wmm.png">
+    <style>
+        /* Reset & Base Style (Sama dengan Galeri Hazusa) */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body { 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #0f172a; 
+            color: #f8f9fa;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.5;
+        }
+
+        /* Navbar (Konsisten) */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 20px;
+            color: #ffffff;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Header Section */
+        .page-header {
+            text-align: center;
+            padding: 60px 20px 30px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .page-header h1 {
+            font-size: 42px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+        }
+
+        .page-header p {
+            color: #94a3b8;
+            font-size: 16px;
+        }
+
+        /* Main Container & Form Layout */
+        .container {
+            max-width: 600px; /* Lebih ramping khusus untuk Form agar scannable */
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 20px 60px 20px;
+            flex: 1;
+        }
+
+        .booking-card {
+            background: #1e293b;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #38bdf8;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            background-color: #0f172a;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: #ffffff;
+            font-family: inherit;
+            font-size: 15px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #38bdf8;
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* Submit Button ala Landingfolio */
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background-color: #38bdf8;
+            color: #0f172a;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        .btn-submit:hover {
+            background-color: #0ea5e9;
+        }
+
+        .btn-submit:active {
+            transform: scale(0.98);
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 25px;
+            text-align: center;
+            font-size: 14px;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <nav class="navbar">
+        <a href="Home.html" class="navbar-brand">RES_SHOOT</a>
+        <div class="nav-links">
+            <a href="profile.html">Profile</a>
+            <a href="Home.html">Home</a>
+            <a href="Comishion.html" class="active">Commission</a>
+            <a href="Galeri.html">Gallery</a>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <h1>Book a Session</h1>
+        <p>Amankan slot fotomu untuk sesi Sunmori, Joyride, atau Cosplay.</p>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="container">
+        <div class="booking-card">
+            <form action="#" method="POST" id="bookingForm">
+                
+                <!-- Nama Klien -->
+                <div class="form-group">
+                    <label for="name">Nama Lengkap / Nickname</label>
+                    <input type="text" id="name" name="name" class="form-control" placeholder="Contoh: Elaina / Handika" required>
+                </div>
+
+                <!-- Jenis Layanan / Kategori Sesi -->
+                <div class="form-group">
+                    <label for="category">Kategori Sesi</label>
+                    <select id="category" name="category" class="form-control" required>
+                        <option value="" disabled selected>Pilih jenis foto...</option>
+                        <option value="Sunmori / Automotive">Sunmori / Automotive (Rolling Shot & Portrait)</option>
+                        <option value="Cosplay / Model">Cosplay / Model Portrait</option>
+                        <option value="Event / Lainnya">Event / Custom Session</option>
+                    </select>
+                </div>
+
+                <!-- Tanggal Sesi -->
+                <div class="form-group">
+                    <label for="date">Rencana Tanggal Sesi</label>
+                    <input type="date" id="date" name="date" class="form-control" required>
+                </div>
+
+                <!-- Detail Tambahan (Motor/Karakter & Lokasi) -->
+                <div class="form-group">
+                    <label for="details">Detail Properti & Lokasi</label>
+                    <textarea id="details" name="details" class="form-control" placeholder="Sebutkan jenis motor (misal: Vario 160 Kuroha) atau karakter cosplay, beserta rencana lokasi shoot (misal: JB Undip Tembalang)." required></textarea>
+                </div>
+
+                <!-- Kontak yang bisa dihubungi -->
+                <div class="form-group">
+                    <label for="contact">Nomor WhatsApp / Instagram</label>
+                    <input type="text" id="contact" name="contact" class="form-control" placeholder="Contoh: @res_shoot / 0812xxx" required>
+                </div>
+
+                <!-- Tombol Submit -->
+                <button type="submit" class="btn-submit">Kirim Pengajuan Booking</button>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Res Shoot by Handika. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
